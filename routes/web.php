@@ -12,9 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('admin.files.create');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('/files', 'UserFileController')->only([
+    'index', 'create', 'store'
+])->middleware('auth');
