@@ -3,6 +3,16 @@
 @section('content')
     <h1 class="text-center">Add file</h1>
 
+    @if($errors->any())
+        <div class="alert alert-danger mb-2">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     {!! Form::open(['route' => 'files.store', 'files' => true]) !!}
 
         <div class="form-group mb-4">
