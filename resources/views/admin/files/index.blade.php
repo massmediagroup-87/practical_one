@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="text-center mb-2">
+        <a href="{{route('files.create')}}" class="btn btn-primary">Add file</a>
+    </div>
     <table class="table table-striped">
         <thead>
         <th><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;File name</th>
@@ -10,8 +13,8 @@
         <tbody>
         @forelse($files as $file)
             <tr>
-                <td><h5 class="mt-1"><a href="#"><i class="fa fa-list-alt" aria-hidden="true">&nbsp;{{$file->name}}</i></a></h5></td>
-                <td class="text-left">{{$file->description}}</td>
+                <td><a href="#"><i class="fa fa-list-alt" aria-hidden="true">&nbsp;{{$file->name}}</i></a></td>
+                <td class="text-left">{{$file->comment}}</td>
                 <td class="text-right">
                     <form onsubmit="if(confirm('DELETE! OK?')){return true}else{return false}" action="#", method="post">
 
