@@ -20,5 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/files', 'UserFileController')->only([
-    'index', 'create', 'store'
+    'index', 'create', 'store', 'show'
 ])->middleware('auth');
