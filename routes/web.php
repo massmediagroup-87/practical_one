@@ -12,13 +12,18 @@
 */
 
 Route::get('/', function () {
-    return view('admin.files.create');
+    return redirect()->route('files.index');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('/files', 'UserFileController')->only([
-    'index', 'create', 'store', 'show'
-])->middleware('auth');
+Route::group(['middleware' => 'auth'], function() {
+    Route::resource('/files', 'UserFileController')->only([
+        'index', 'create', 'store', 'show'
+    ]);
+
+    Route::get('report', 'ReportUserFilesController')->middleware('admin');
+});
+
