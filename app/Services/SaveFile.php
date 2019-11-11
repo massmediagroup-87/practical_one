@@ -3,18 +3,22 @@
 namespace App\Services;
 
 use App\UserFile;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class SaveFile
 {
-    public static function make($request)
+    public function make(array $request)
     {
         $file = new UserFile();
-        $file_name = rand() . '.' . $request->file('file')->getClientOriginalExtension();
+        $file->user_id = $request['user_id'];
+        $file->comment = $request['comment'];
+
+        $directory = $request['user_id'] . '_userFiles';
+        $storagePath = Storage::url($directory);
+        $file_path = Storage::url($request['file']->store($directory));
+        $file_name = substr($file_path, strlen($storagePath) + 1);
         $file->name = $file_name;
-        $file->user_id = Auth::id();
-        $file->comment = $request->comment ?? '';
-        $request->file('file')->move(public_path(Auth::id().'_userFiles'), $file_name);
-        $file->save();
+
+        return $file->save();
     }
 }
