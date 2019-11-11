@@ -10,7 +10,7 @@
     @endif
     <hr>
     <div class="text-center">
-        <img src="{{asset("storage/$file_path")}}" width="700" height="500">
+        <img src="{{asset("storage/$filePath")}}" width="700" height="500">
     </div>
     <hr>
     <div class="text-center m-4">
