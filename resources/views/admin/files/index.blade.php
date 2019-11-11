@@ -21,6 +21,11 @@
                 <td><a href="{{ route('files.show', $file) }}"><i class="fa fa-list-alt" aria-hidden="true">&nbsp;{{$file->name}}</i></a></td>
                 <td class="text-left">{{$file->comment}}</td>
                 <td class="text-right">
+                    <form action="{{route('files.destroy', $file)}}" method="POST" class="destroy">
+                        @csrf
+                        @method('delete')
+                        <button onclick="this.document.getElementsByClassName('destroy').submit(); return false;"><i class="fa fa-trash"></i></button>
+                    </form>
                 </td>
             </tr>
         @empty
