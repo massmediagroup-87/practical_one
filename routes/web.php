@@ -20,8 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::resource('/files', 'UserFileController')->only([
-        'index', 'create', 'store', 'show'
+    Route::resource('/files', 'UserFileController')->except([
+        'edit', 'update'
     ]);
 
     Route::get('report', 'ReportUserFilesController')->middleware('admin');
