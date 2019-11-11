@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\UserFile;
-use App\Services\SaveFile;
+use App\Services\FileHandler;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\FileStoreRequest;
 
@@ -14,10 +14,9 @@ class UserFileController extends Controller
      */
     private $saveFile;
 
-    public function __construct(SaveFile $saveFile)
+    public function __construct(FileHandler $fileHandler)
     {
-
-        $this->saveFile = $saveFile;
+        $this->fileHandler = $fileHandler;
     }
 
     public function index()
@@ -33,19 +32,23 @@ class UserFileController extends Controller
 
     public function store(FileStoreRequest $request)
     {
-        $requestData = [
-            'user_id' => Auth::id(),
-            'comment' => $request->comment ?? '',
-            'file' => $request->file('file')
-        ];
+        $userId = Auth::id();
+        $comment = $request->comment ?? '';
+        $getFile = $request->file('file');
+        $this->fileHandler->save($userId, $getFile, $comment);
 
-        $this->saveFile->make($requestData);
         return redirect()->route('files.index');
     }
 
     public function show(UserFile $file)
     {
-        $file_path = "{$file->user_id}_userFiles/$file->name";
-        return view('admin.files.show', ['file' => $file, 'file_path' => $file_path]);
+        $filePath = $this->fileHandler->getFilePath($file->name);
+        return view('admin.files.show', ['file' => $file, 'filePath' => $filePath]);
+    }
+
+    public function destroy(UserFile $file)
+    {
+        $this->fileHandler->delete($file);
+        return redirect()->route('files.index');
     }
 }
