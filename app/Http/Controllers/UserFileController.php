@@ -9,6 +9,17 @@ use App\Http\Requests\FileStoreRequest;
 
 class UserFileController extends Controller
 {
+    /**
+     * @var SaveFile
+     */
+    private $saveFile;
+
+    public function __construct(SaveFile $saveFile)
+    {
+
+        $this->saveFile = $saveFile;
+    }
+
     public function index()
     {
         $files = UserFile::where('user_id', Auth::id())->orderBy('created_at', 'desc')->paginate(20);
@@ -22,13 +33,19 @@ class UserFileController extends Controller
 
     public function store(FileStoreRequest $request)
     {
-        SaveFile::make($request);
+        $requestData = [
+            'user_id' => Auth::id(),
+            'comment' => $request->comment ?? '',
+            'file' => $request->file('file')
+        ];
+
+        $this->saveFile->make($requestData);
         return redirect()->route('files.index');
     }
 
     public function show(UserFile $file)
     {
-        $file_path = '/'.Auth::id().'_userFiles/'.$file->name;
+        $file_path = "{$file->user_id}_userFiles/$file->name";
         return view('admin.files.show', ['file' => $file, 'file_path' => $file_path]);
     }
 }
