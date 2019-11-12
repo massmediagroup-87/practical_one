@@ -9,13 +9,17 @@ use Illuminate\Support\Facades\Storage;
 
 class FileHandler
 {
-    public function save(int $userId, UploadedFile $getFile, string $comment): bool
+    public function save(int $userId, UploadedFile $getFile, string $comment, string $deletingDate): bool
     {
         $file = new UserFile();
+
         $file->user_id = $userId;
         $file->comment = $comment;
-        $pathName = $this->storeFile($getFile);
-        $file->name = $this->getFileName($pathName);
+        $file->deleting_date = $deletingDate;
+
+        $storeFile = $this->storeFile($getFile);
+        $file->name = $this->getFileName($storeFile);
+
         return $file->save();
     }
 
