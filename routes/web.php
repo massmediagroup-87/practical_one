@@ -27,3 +27,4 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('report', 'ReportUserFilesController')->middleware('admin');
 });
 
+Route::get('file/{file}', 'FileLinkController')->name('file.name');
