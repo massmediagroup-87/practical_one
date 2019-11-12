@@ -16,8 +16,9 @@ class CreateUserFilesTable extends Migration
         Schema::create('user_files', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->text('comment');
+            $table->text('comment')->nullable();
             $table->integer('user_id');
+            $table->date('deleting_date')->nullable();
             $table->timestamps();
         });
     }
