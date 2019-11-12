@@ -5,15 +5,15 @@
     <h1 class="text-center mb-4">
         File {{ $file->name }}
     </h1>
-    @if ( $file->deleting_date != null )
+    @if ( $file->deleting_date !== null )
         <h3 class="text-center">Deleting:&nbsp;{{ $file->deleting_date }}</h3>
     @endif
-    @if ( $file->comment != null )
+    @if ( $file->comment !== null )
         <h3 class="text-center">Comment:&nbsp;{{ $file->comment }}</h3>
     @endif
     <hr>
     <div class="text-center">
-        <img src="{{asset("storage/$filePath")}}" width="700" height="500">
+        <img src="{{asset($filePath)}}" width="700" height="500">
     </div>
     <hr>
     <div class="text-center m-4">
