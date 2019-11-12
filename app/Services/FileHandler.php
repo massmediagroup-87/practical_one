@@ -4,11 +4,12 @@
 namespace App\Services;
 
 use App\UserFile;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class FileHandler
 {
-    public function save($userId, $getFile, $comment): bool
+    public function save(int $userId, UploadedFile $getFile, string $comment): bool
     {
         $file = new UserFile();
         $file->user_id = $userId;
