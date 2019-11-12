@@ -14,4 +14,9 @@ class UserFile extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function links()
+    {
+        return $this->hasMany('App\FileLink', 'file_id');
+    }
 }
