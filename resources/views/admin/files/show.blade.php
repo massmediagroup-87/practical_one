@@ -5,6 +5,9 @@
     <h1 class="text-center mb-4">
         File {{ $file->name }}
     </h1>
+    @if ( $file->deleting_date != null )
+        <h3 class="text-center">Deleting:&nbsp;{{ $file->deleting_date }}</h3>
+    @endif
     @if ( $file->comment != null )
         <h3 class="text-center">Comment:&nbsp;{{ $file->comment }}</h3>
     @endif
