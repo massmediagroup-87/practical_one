@@ -23,6 +23,10 @@
             {!! Form::label('comment', 'Comment for file'); !!}
             {!! Form::text('comment', '', ['class' => 'form-control']); !!}
         </div>
+        <div class="form-group">
+            {!! Form::label('deletingDate', 'Date of drop file: '); !!}
+            {!! Form::date('deletingDate', \Carbon\Carbon::now()); !!}
+        </div>
         <div class="form-group text-center">
             {!! Form::submit('Submit!', ['class' => 'btn btn-primary']); !!}
         </div>
