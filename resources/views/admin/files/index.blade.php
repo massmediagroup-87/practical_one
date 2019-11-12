@@ -13,6 +13,7 @@
         <thead>
         <th><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;Name</th>
         <th class="text-left"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Comment</th>
+        <th class="text-left"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Deleting</th>
         <th class="text-right"><i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;Action</th>
         </thead>
         <tbody>
@@ -20,6 +21,7 @@
             <tr>
                 <td><a href="{{ route('files.show', $file) }}"><i class="fa fa-list-alt" aria-hidden="true">&nbsp;{{$file->name}}</i></a></td>
                 <td class="text-left">{{$file->comment}}</td>
+                <td>{{$file->deleting_date}}</td>
                 <td class="text-right">
                     <form action="{{route('files.destroy', $file)}}" method="POST" class="destroy">
                         @csrf
