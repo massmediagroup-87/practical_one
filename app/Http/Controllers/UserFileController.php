@@ -35,7 +35,14 @@ class UserFileController extends Controller
         $userId = Auth::id();
         $comment = $request->comment ?? '';
         $getFile = $request->file('file');
-        $this->fileHandler->save($userId, $getFile, $comment);
+        $deletingDate = $request->deletingDate ?? '';
+
+        $this->fileHandler->save(
+            $userId,
+            $getFile,
+            $comment,
+            $deletingDate
+        );
 
         return redirect()->route('files.index');
     }
