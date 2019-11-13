@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Services;
 
 use App\UserFile;
@@ -51,7 +50,7 @@ class FileHandler
 
     public function counterVisitors(UserFile $file): bool
     {
-        $file->visitors = ++$file->visitors;
+        ++$file->visitors;
 
         return $file->update();
     }
