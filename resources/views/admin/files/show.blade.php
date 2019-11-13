@@ -13,8 +13,10 @@
     @endif
     <hr>
     <div class="text-center">
-        <img src="{{asset($filePath)}}" width="700" height="500">
+        <img src="{{asset($file->path)}}" width="700" height="500">
     </div>
+    <hr>
+    <h3 class="text-center">Visitors:&nbsp;{{ $file->visitors }}</h3>
     <hr>
     <div class="text-center m-4">
         <a class="btn btn-primary" href="{{route('files.create')}}">
