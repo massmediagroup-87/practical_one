@@ -3,16 +3,18 @@
         <a class="navbar-brand mr-4" href="{{ url('/') }}">
             {{ config('app.name', 'Laravel') }}
         </a>
+
         @auth
             <a class="btn btn-primary mr-4 ml-4" href="{{ route('files.index') }}">
                 My files
             </a>
-        @endauth
-        @if ( Auth::id() == 1 )
+            <a class="btn btn-primary mr-4 ml-4" href="{{ route('temp.index') }}">
+                Temporary links
+            </a>
             <a class="btn btn-warning ml-4" href="{{ url('report') }}">
                 Report
             </a>
-        @endif
+        @endauth
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
