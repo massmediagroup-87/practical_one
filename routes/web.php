@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return redirect()->route('files.index');
 });
@@ -19,12 +8,18 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
+
     Route::resource('/files', 'UserFileController')->except([
         'edit', 'update'
     ]);
 
-    Route::get('report', 'ReportUserFilesController')->middleware('admin');
-});
+    Route::resource('temp', 'TempLinkController')->only([
+        'index', 'show', 'destroy'
+    ]);
 
-Route::get('file/{file}', 'FileLinkController')->name('file.name');
+    Route::get('report', 'ReportUserFilesController');
+    Route::get('file/{file}', 'FileLinkController')->name('file.name');
+    Route::get('temporary/{file}', 'TempStoreController')->name('temporary.store');
+
+});
