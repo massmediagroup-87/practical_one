@@ -25,9 +25,9 @@
                 <td class="text-left">{{$file->comment}}</td>
                 <td>{{$file->deleting_date}}</td>
                 <td class="text-right">
-
                     <form onsubmit="if(confirm('DELETE! OK?')){return true}else{return false}" action="{{route('files.destroy', $file)}}" method="POST" class="destroy">
-                        <a href="{{route('file.name', $file)}}" target="_blank"><i class="fa fa-link"></i></a>
+                        <a href="{{route('temporary.store', $file)}}" ><i class="fa fa-key"></i></a>&nbsp;
+                        <a href="{{route('file.name', $file)}}" ><i class="fa fa-link"></i></a>&nbsp;
                         @csrf
                         @method('delete')
                         <button onclick="this.document.getElementsByClassName('destroy').submit(); return false;"><i class="fa fa-trash"></i></button>
