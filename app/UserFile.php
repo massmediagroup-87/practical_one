@@ -12,11 +12,11 @@ class UserFile extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 
     public function links()
     {
-        return $this->hasMany('App\FileLink', 'file_id');
+        return $this->hasMany(TempLink::class, 'file_id');
     }
 }
