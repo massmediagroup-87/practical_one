@@ -9,10 +9,8 @@ use App\Http\Requests\FileStoreRequest;
 
 class UserFileController extends Controller
 {
-    /**
-     * @var SaveFile
-     */
-    private $saveFile;
+
+    private $fileHandler;
 
     public function __construct(FileHandler $fileHandler)
     {
@@ -22,6 +20,7 @@ class UserFileController extends Controller
     public function index()
     {
         $files = UserFile::where('user_id', Auth::id())->orderBy('created_at', 'desc')->paginate(20);
+
         return view('admin.files.index', ['files' => $files]);
     }
 
@@ -33,13 +32,13 @@ class UserFileController extends Controller
     public function store(FileStoreRequest $request)
     {
         $userId = Auth::id();
-        $comment = $request->comment ?? '';
-        $getFile = $request->file('file');
-        $deletingDate = $request->deletingDate ?? '';
+        $comment = $request->get('comment');
+        $file = $request->file('file');
+        $deletingDate = $request->get('deletingDate');
 
         $this->fileHandler->save(
             $userId,
-            $getFile,
+            $file,
             $comment,
             $deletingDate
         );
@@ -49,13 +48,17 @@ class UserFileController extends Controller
 
     public function show(UserFile $file)
     {
-        $filePath = $this->fileHandler->getFilePath($file->name);
-        return view('admin.files.show', ['file' => $file, 'filePath' => $filePath]);
+        $this->fileHandler->counterVisitors($file);
+        $file->path = $this->fileHandler->getFilePath($file->name);
+
+        return view('admin.files.show', ['file' => $file]);
     }
 
     public function destroy(UserFile $file)
     {
         $this->fileHandler->delete($file);
+
         return redirect()->route('files.index');
     }
+
 }
